@@ -53,6 +53,7 @@ class Game
 
 		// Accessor
 		const bool running() const;
+		const bool getEndGame() const;
 
 
 		// Functions.

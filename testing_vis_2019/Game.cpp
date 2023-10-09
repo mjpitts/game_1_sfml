@@ -48,9 +48,13 @@ Game::~Game() {
 	delete this->window;
 }
 
-// Accessor.
+// Accessors.
 const bool Game::running() const {
 	return this->window->isOpen();
+}
+
+const bool Game::getEndGame() const {
+    return this->endGame;
 }
 
 
@@ -174,9 +178,6 @@ void Game::update() {
     if (health <= 0) {
         this->endGame = 0;
     }
-    
-    // Print mouse pos, relative to window.
-    std::cout << "Mouse pos: " << this->mousePosView.x << ", " << this->mousePosView.y << "\n";
 }
 
 void Game::render() {
