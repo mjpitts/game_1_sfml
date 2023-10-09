@@ -27,6 +27,9 @@ class Game
 		// View pos captured as floats
 		sf::Vector2f mousePosView; 
 
+		// Resources 
+		sf::Font font;
+
 		// Game logic.
 		// never negative
 		unsigned points;
@@ -45,6 +48,7 @@ class Game
 		void intializeVars();
 		void intializeWin();
 		void intializeEnemy();
+		void intializeFonts();
 
 	public:
 		// Constructor, Destruction

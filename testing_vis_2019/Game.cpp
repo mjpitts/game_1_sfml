@@ -35,6 +35,10 @@ void Game::intializeEnemy() {
     this->enemy.setOutlineThickness(1.5f);
 }
 
+void Game::intializeFonts() {
+    this->font.loadFromFile("PixelifySans-VariableFont_wght.ttf");
+}
+
 // Constructor / Destructor.
 
 Game::Game() {
