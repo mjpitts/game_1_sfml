@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -30,6 +31,9 @@ class Game
 		// Resources 
 		sf::Font font;
 
+		// Text
+		sf::Text uiText;
+
 		// Game logic.
 		// never negative
 		unsigned points;
@@ -49,6 +53,7 @@ class Game
 		void intializeWin();
 		void intializeEnemy();
 		void intializeFonts();
+		void intializeText();
 
 	public:
 		// Constructor, Destruction
@@ -62,10 +67,16 @@ class Game
 
 		// Functions.
 		void pollEvents();
+
 		void updateMousePos();
+
 		void spawnEnemy();
 		void updateEnemies();
-		void renderEnemies();
+		void renderEnemies(sf::RenderTarget& target);
+
+		void renderText(sf::RenderTarget& target);
+		void updateText();
+
 		void update();
 		void render();
 

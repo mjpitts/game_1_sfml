@@ -36,13 +36,25 @@ void Game::intializeEnemy() {
 }
 
 void Game::intializeFonts() {
-    this->font.loadFromFile("PixelifySans-VariableFont_wght.ttf");
+    // Set font
+    this->font.loadFromFile("Fonts/PixelifySans-Bold.ttf");
+        
+
+}
+
+void Game::intializeText() {
+    this->uiText.setFont(this->font);
+    this->uiText.setCharacterSize(25);
+    this->uiText.setFillColor(sf::Color::White);
+    this->uiText.setString("TEST");
 }
 
 // Constructor / Destructor.
 
 Game::Game() {
 	// Order matters.
+    this->intializeFonts();
+    this->intializeText();
 	this->intializeVars();
 	this->intializeWin();
     this->intializeEnemy();
@@ -80,10 +92,10 @@ void Game::spawnEnemy() {
     this->enemies.push_back(this->enemy);
 }
 
-void Game::renderEnemies() {
+void Game::renderEnemies(sf::RenderTarget& target) {
 
     for (auto& e : this->enemies) {
-        this->window->draw(e);
+        target.draw(e);
     }
 }
 
@@ -169,18 +181,38 @@ void Game::updateMousePos() {
     this->mousePosView = this->window->mapPixelToCoords(this->mousePosWin);
 }
 
+void Game::renderText(sf::RenderTarget& target) {
+
+    target.draw(this->uiText);
+
+}
+
+void Game::updateText() {
+
+    std::stringstream ss;
+
+    ss << "Points: " << this->points << "\n"
+        << "Health: " << this->health;
+
+    this->uiText.setString(ss.str());
+
+}
+
 void Game::update() {
     this->pollEvents();
 
     // If game hasn't ended
     if (!this->endGame) {
         this->updateMousePos();
+
+        this->updateText();
+
         this->updateEnemies();
     }
 
     // Check if game has ended.
     if (health <= 0) {
-        this->endGame = 0;
+        this->endGame = true;
     }
 }
 
@@ -198,7 +230,10 @@ void Game::render() {
     this->window->clear();
 
     // Draw game.
-    this->renderEnemies();
+    this->renderEnemies(*this->window);
+
+    // Render text.
+    this->renderText(*this->window);
     
     this->window->display();
 }
